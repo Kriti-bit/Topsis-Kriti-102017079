@@ -36,11 +36,11 @@ def main():
         print("ERROR: Number of weights not equal to number of columns")
         exit()
 
-    # Error if weights are not numbers
+    # Error if weights are not separated by comma
     try:
         weights = [float(i) for i in sys.argv[2].split(",")]
     except ValueError:
-        print("ERROR: Weights are not numbers")
+        print("ERROR: Weights are not provided in the correct format")
         exit()
 
     # Error if impacts are not given

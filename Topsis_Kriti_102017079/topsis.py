@@ -78,9 +78,29 @@ def topsis(data, result_file, weights, impact):
     new_data = weighted_sum(new_data, weights)
     best_solution = ideal_best_solution(new_data, impact)
     worst_solution = ideal_worst_solution(new_data, impact)
-    new_data = euclidean_distance(new_data)
-    new_data = rank(new_data)
+    euclidean_distances = calc_euclidean_distance(
+        new_data, best_solution, worst_solution)
+    new_data["Score"] = euclidean_distances
+    new_data["Rank"] = new_data["Score"].rank(method="max", ascending=False)
+    new_data = new_data.astype({"Rank": int})
     new_data.to_csv(result_file, index=False)
+
+
+def calc_euclidean_distance(data, best_solution, worst_solution):
+    # Euclidean distance
+    euclidean_distances = []
+    for i in range(len(data)):
+        pos_euclidean_distance = 0
+        neg_euclidean_distance = 0
+        for j in data.columns:
+            pos_euclidean_distance += (data[j][i] - best_solution[j][i])**2
+            neg_euclidean_distance += (data[j][i] - worst_solution[j][i])**2
+        pos_euclidean_distance, neg_euclidean_distance = pos_euclidean_distance**0.5, neg_euclidean_distance**0.5
+        euclidean_distance = (neg_euclidean_distance /
+                              (pos_euclidean_distance + neg_euclidean_distance))
+        euclidean_distances.append(euclidean_distance)
+
+    return euclidean_distances
 
 
 def ideal_best_solution(data, impact):

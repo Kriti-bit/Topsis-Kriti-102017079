@@ -68,12 +68,23 @@ def main():
         print("ERROR: {} is not a csv file".format(sys.argv[4]))
         exit()
 
+    data = pd.read_csv(sys.argv[1])
+
+    # Error If number of columns is less than 3
+    if len(data.columns) < 3:
+        print("ERROR: Number of columns is less than 3")
+        exit()
+
+    # 2nd column of input file has non numeric values then encode it
+    for i in range(1, len(data.columns)):
+        pd.to_numeric(data.iloc[:, i], errors="coerce")
+        data.iloc[:, i].fillna((data.iloc[:, i].mode()), inplace=True)
+
     # Read data from csv file
-    topsis(sys.argv[1], sys.argv[4], weights, sys.argv[3].split(","))
+    topsis(data, sys.argv[4], weights, sys.argv[3].split(","))
 
 
 def topsis(data, result_file, weights, impact):
-    data = pd.read_csv(sys.argv[1])
     new_data = normalisation(data)
     new_data = weighted_sum(new_data, weights)
     best_solution = ideal_best_solution(new_data, impact)

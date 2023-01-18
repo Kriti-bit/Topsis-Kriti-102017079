@@ -68,6 +68,36 @@ def main():
         print("ERROR: {} is not a csv file".format(sys.argv[4]))
         exit()
 
+    # Read data from csv file
+    data = pd.read_csv(sys.argv[1])
+
+
+def normalisation(data):
+    # Normalisation
+    normalised_data = data.copy()
+    for i in data.columns:
+        column_sum_of_squares = 0
+
+        for j in data[i]:
+            column_sum_of_squares += j*j
+
+        column_sum_of_squares = column_sum_of_squares**0.5
+
+        for k in range(len(data[i])):
+            normalised_data[i][k] = data[i][k]/column_sum_of_squares
+
+    return normalised_data
+
+
+def weighted_sum(normalised_data, weights):
+    # Weighted sum
+    weighted_sum_data = normalised_data.copy()
+    for i in normalised_data.columns:
+        for j in range(len(normalised_data[i])):
+            weighted_sum_data[i][j] = normalised_data[i][j]*weights[j]
+
+    return weighted_sum_data
+
 
 if __name__ == "__main__":
     main()

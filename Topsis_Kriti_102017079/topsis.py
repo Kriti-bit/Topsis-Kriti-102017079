@@ -69,7 +69,42 @@ def main():
         exit()
 
     # Read data from csv file
+    topsis(sys.argv[1], sys.argv[4], weights, sys.argv[3].split(","))
+
+
+def topsis(data, result_file, weights, impact):
     data = pd.read_csv(sys.argv[1])
+    new_data = normalisation(data)
+    new_data = weighted_sum(new_data, weights)
+    best_solution = ideal_best_solution(new_data, impact)
+    worst_solution = ideal_worst_solution(new_data, impact)
+    new_data = euclidean_distance(new_data)
+    new_data = rank(new_data)
+    new_data.to_csv(result_file, index=False)
+
+
+def ideal_best_solution(data, impact):
+    # Ideal best solution
+    ideal_solution_data = data.copy()
+    for i in data.columns:
+        if impact[i] == "+":
+            ideal_solution_data[i] = max(data[i])
+        else:
+            ideal_solution_data[i] = min(data[i])
+
+    return ideal_solution_data
+
+
+def ideal_worst_solution(data, impact):
+    # Ideal worst solution
+    ideal_solution_data = data.copy()
+    for i in data.columns:
+        if impact[i] == "+":
+            ideal_solution_data[i] = min(data[i])
+        else:
+            ideal_solution_data[i] = max(data[i])
+
+    return ideal_solution_data
 
 
 def normalisation(data):

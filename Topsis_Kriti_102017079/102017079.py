@@ -49,6 +49,13 @@ def main():
         print("ERROR: Impacts not given")
         exit()
 
+    # Error if impacts are not separated by comma
+    try:
+        impact = [i for i in sys.argv[3].split(",")]
+    except ValueError:
+        print("ERROR: Impacts are not provided in the correct format")
+        exit()
+
     # Error if impacts are not equal to number of columns
     if len(sys.argv[3].split(",")) != len(pd.read_csv(sys.argv[1]).columns) - 1:
         print("ERROR: Number of impacts not equal to number of columns")
@@ -127,14 +134,6 @@ def ideal_best_solution(data, impact):
     ideal_solution_data = np.array(ideal_solution_data)
     return ideal_solution_data
 
-    # for i in range(1, len(data.columns.values)):
-    #     if impact[i-1] == "+":
-    #         ideal_solution_data[i-1] = max(data[:i])
-    #     else:
-    #         ideal_solution_data[i-1] = min(data[:i])
-    # ideal_solution_data = np.array(ideal_solution_data)
-    # return ideal_solution_data
-
 
 def ideal_worst_solution(data, impact):
     # Ideal worst solution
@@ -146,13 +145,6 @@ def ideal_worst_solution(data, impact):
             ideal_solution_data.append(max(data.iloc[:, i]))
     ideal_solution_data = np.array(ideal_solution_data)
     return ideal_solution_data
-    # for i in range(0, len(data.columns.values)-1):
-    #     if impact[i] == "+":
-    #         ideal_solution_data[i] = min(data[i])
-    #     else:
-    #         ideal_solution_data[i] = max(data[i])
-    # ideal_solution_data = np.array(ideal_solution_data)
-    # return ideal_solution_data
 
 
 def normalisation(data):

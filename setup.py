@@ -1,10 +1,15 @@
 from distutils.core import setup
+
+with open("README.md", "r") as fh:
+    readme_desc = fh.read()
+
 setup(
     name='Topsis-Kriti-102017079',
     packages=['Topsis-Kriti-102017079'],
     version='0.1',
     license='MIT',
     description='A convenient python package for Topsis rank and score calculation for a given dataset, weights and impacts',
+    ong_description=readme_desc,
     author='Kriti Singhal',
     author_email='kritisinghal711@gmail.com',
     url='https://github.com/Kriti-bit/Topsis-Kriti-102017079',

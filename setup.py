@@ -8,11 +8,11 @@ setup(
     author='Kriti Singhal',
     author_email='kritisinghal711@gmail.com',
     url='https://github.com/Kriti-bit/Topsis-Kriti-102017079',
-    download_url='https://github.com/user/reponame/archive/v_01.tar.gz',  # TO DO ###
+    download_url='https://github.com/Kriti-bit/Topsis-Kriti-102017079/archive/refs/tags/v0.1.tar.gz',
     keywords=['topsis'],
     install_requires=[
-        'validators',
-        'beautifulsoup4',
+        'pandas',
+        'numpy',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',

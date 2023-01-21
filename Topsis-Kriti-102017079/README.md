@@ -18,6 +18,9 @@ Description: **A convenient python package for Topsis rank and score calculation
 
 ---
 
+[![Package](https://nakedsecurity.sophos.com/wp-content/uploads/sites/2/2021/03/pypi-1200-1.png)](https://pypi.org/project/Topsis-Kriti-102017079/)
+<br><br><br>
+
 ## What is TOPSIS?
 
 **T**echnique for **O**rder **P**reference by **S**imilarity to **I**deal **S**olution

@@ -93,8 +93,7 @@ def main():
 
 
 def topsis(data, result_file, weights, impact):
-    new_data = normalisation(data)
-    new_data = weighted_sum(new_data, weights)
+    new_data = normalisation(data, weights)
     best_solution = ideal_best_solution(new_data, impact)
     worst_solution = ideal_worst_solution(new_data, impact)
     scores = calc_score(
@@ -148,7 +147,7 @@ def ideal_worst_solution(data, impact):
     return ideal_solution_data
 
 
-def normalisation(data):
+def normalisation(data, weights):
     # Normalisation
     normalised_data = data.copy()
     for i in range(1, len(data.columns.values)):
@@ -161,19 +160,9 @@ def normalisation(data):
 
         for k in range(0, len(data)):
             normalised_data.iat[k, i] = (
-                data.iloc[k, i]/column_sum_of_squares)
+                data.iloc[k, i]/column_sum_of_squares)*weights[i-1]
 
     return normalised_data
-
-
-def weighted_sum(normalised_data, weights):
-    # Weighted sum
-    weighted_sum_data = normalised_data.copy()
-    for i in range(0, len(normalised_data.columns.values)-1):
-        for j in range(len(normalised_data)):
-            weighted_sum_data.iloc[j, i] *= weights[i]
-
-    return weighted_sum_data
 
 
 if __name__ == "__main__":

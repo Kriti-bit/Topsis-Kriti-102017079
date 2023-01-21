@@ -5,7 +5,7 @@ with open("PyPi_README.md", "r") as fh:
 
 setup(
     name='Topsis-Kriti-102017079',
-    version='1.2',
+    version='1.3',
     license='MIT',
     description='A convenient python package for Topsis rank and score calculation for a given dataset, weights and impacts',
     long_description=readme_desc,

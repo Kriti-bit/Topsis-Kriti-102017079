@@ -99,8 +99,9 @@ def topsis(data, result_file, weights, impact):
     worst_solution = ideal_worst_solution(new_data, impact)
     scores = calc_score(
         new_data, best_solution, worst_solution)
-    new_data["Score"] = scores
-    new_data["Rank"] = new_data["Score"].rank(method="max", ascending=False)
+    new_data["Topsis Score"] = scores
+    new_data["Rank"] = new_data["Topsis Score"].rank(
+        method="max", ascending=False)
     new_data = new_data.astype({"Rank": int})
     new_data.to_csv(result_file, index=False)
 
